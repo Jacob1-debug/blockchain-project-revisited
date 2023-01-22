@@ -1,4 +1,22 @@
 import time
+"""
+The code defines a Block class for creating and storing blocks in a blockchain.
+Each block contains a timestamp, a reference to the previous block's hash, a hash of
+the current block, data (transactions), a difficulty value, and a nonce. The class also 
+provides several methods for interacting with the blocks, such as:
+
+__init__(): Initializes a new block instance with the given properties
+__repr__(): Returns a string representation of the block
+__eq__(): Compares the block with another block
+to_json(): Serializes the block into a dictionary of its attributes
+mine_block(last_block, data): Mines a new block by finding a hash that meets the proof-of-work requirement
+genesis(): Generates the Genesis block (first block of the blockchain)
+from_json(block_json): Deserializes a block's json representation back into a block instance
+adjust_difficulty(last_block, new_timestamp): Adjusts the difficulty of the block according to the MINE_RATE
+is_valid_block(last_block, block): Validates a block by enforcing several rules such as proper last_hash reference and meeting proof of work requirement.
+The class also uses the crypto_hash and hex_to_binary utility functions from the backend.util package, and the MINE_RATE constant from the backend.config package.
+
+"""
 
 # import crypto_hash and hex_to_binary utility functions
 from backend.util.crypto_hash import crypto_hash
