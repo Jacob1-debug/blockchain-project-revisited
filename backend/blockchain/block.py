@@ -1,9 +1,13 @@
 import time
 
+# import crypto_hash and hex_to_binary utility functions
 from backend.util.crypto_hash import crypto_hash
 from backend.util.hex_to_binary import hex_to_binary
+
+# import MINE_RATE from config
 from backend.config import MINE_RATE
 
+# Initial Genesis data
 GENESIS_DATA = {
     'timestamp': 1,
     'last_hash': 'genesis_last_hash',
@@ -26,6 +30,7 @@ class Block:
         self.difficulty = difficulty
         self.nonce = nonce
 
+    # returns a string representation of the block
     def __repr__(self):
         return (
             'Block('
@@ -37,9 +42,11 @@ class Block:
             f'nonce: {self.nonce})'
         )
 
+    # compares the block with other block
     def __eq__(self, other):
         return self.__dict__ == other.__dict__
 
+    # returns json representation of the block
     def to_json(self):
         """
         Serialize the block into a dictionary of its attributes
@@ -58,13 +65,16 @@ class Block:
         nonce = 0
         hash = crypto_hash(timestamp, last_hash, data, difficulty, nonce)
 
+        # mine the block until the leading 0's proof of work is met
         while hex_to_binary(hash)[0:difficulty] != '0' * difficulty:
             nonce += 1
             timestamp = time.time_ns()
             difficulty = Block.adjust_difficulty(last_block, timestamp)
             hash = crypto_hash(timestamp, last_hash, data, difficulty, nonce)
 
+        # return mined block
         return Block(timestamp, last_hash, hash, data, difficulty, nonce)
+
 
     @staticmethod
     def genesis():
