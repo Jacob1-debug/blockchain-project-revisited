@@ -1,3 +1,12 @@
+"""
+The code defines a Transaction class, which is a document of an exchange in currency from a sender to 
+one or more recipients. The class has methods that create the output and input data for the transaction,
+update the transaction with an existing or new recipient, serialize and deserialize the transaction, and validate 
+the transaction. It also has a static method that generates a reward transaction that awards the miner. The main function 
+creates an instance of the Transaction class and demonstrates how to convert it to a json and back to the Transaction object
+
+"""
+
 import time
 import uuid
 
