@@ -1,3 +1,18 @@
+"""
+This code is a basic implementation of a blockchain application that uses the Flask framework for building web applications in Python. The application provides a few routes for interacting with the blockchain and wallet functionality, such as:
+
+route_default(): A default route that returns a message "Welcome to the blockchain"
+route_blockchain(): A route that returns the current state of the blockchain
+route_blockchain_mine(): A route that allows a user to mine a new block and broadcast it to other peers
+route_wallet_transact(): A route that allows a user to make a transaction and broadcast it to other peers
+The application also has the feature of synchronizing with other peers running the same script. It does this by checking if the script is running as a peer, and if so, it will attempt to retrieve the blockchain from a root node (running on port 5000) and attempt to replace the local chain with the retrieved blockchain.
+
+It also uses the PubSub (Publisher-Subscriber) pattern to broadcast blocks and transaction to other peers.
+
+The application uses several classes from the backend directory such as Blockchain, Wallet, Transaction, TransactionPool, and PubSub, which implement the core functionality of the blockchain and wallet.
+
+"""
+
 import os
 import requests
 import random
