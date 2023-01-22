@@ -1,3 +1,24 @@
+"""
+This is a collection of test functions for the Block class in the backend of a blockchain application.
+The tests are using the pytest library to check the functionality of the class methods and its attributes.
+
+test_mine_block() is testing the functionality of the mine_block() method by creating a block using the mine_block() method
+and checking if the returned object is an instance of the Block class, if the data passed to the method matches the data attribute
+of the block and if the last_hash and hash attributes are set correctly.
+
+test_genesis() is testing the functionality of the genesis() method by creating a block using the genesis() method and checking if
+the returned object is an instance of the Block class and if the attributes of the genesis block match the predefined values in the GENESIS_DATA variable.
+
+test_quickly_mined_block() is testing the functionality of the mine_block() method and the adjust_difficulty() method by creating two
+blocks in quick succession and checking if the difficulty of the second block is one greater than the difficulty of the first block.
+
+test_slowly_mined_block() is testing the functionality of the mine_block() method and the adjust_difficulty() method by creating two blocks
+with a delay between them and checking if the difficulty of the second block is one less than the difficulty of the first block.
+
+test_mined_block_difficulty_limits_at_1() is testing the functionality of the `mine
+
+"""
+
 import pytest
 import time
 
@@ -5,19 +26,23 @@ from backend.blockchain.block import Block, GENESIS_DATA
 from backend.config import MINE_RATE, SECONDS
 from backend.util.hex_to_binary import hex_to_binary
 
+# Test if a block can be mined successfully
 def test_mine_block():
-    last_block = Block.genesis()
+    last_block = Block.genesis() # create the genesis block
     data = 'test-data'
-    block = Block.mine_block(last_block, data)
+    block = Block.mine_block(last_block, data) # mine a new block
 
+    # Assert that the mined block is a Block instance, has the correct data, last_hash, and hash
     assert isinstance(block, Block)
     assert block.data == data
     assert block.last_hash == last_block.hash
     assert hex_to_binary(block.hash)[0:block.difficulty] == '0' * block.difficulty
 
+# Test if the genesis block is created correctly
 def test_genesis():
     genesis = Block.genesis()
 
+    # Assert that the genesis block is a Block instance and has the correct data
     assert isinstance(genesis, Block)
     for key, value in GENESIS_DATA.items():
         getattr(genesis, key) == value
