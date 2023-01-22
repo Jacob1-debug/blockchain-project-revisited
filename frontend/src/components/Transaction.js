@@ -6,7 +6,9 @@ function Transaction({ transaction }) {
 
   return (
     <div className="Transaction">
+      {/*  The address of the sender  */}
       <div>From: {input.address}</div>
+      {/*  Map through all the recipients and display the recipient address and amount sent  */}
       {
         recipients.map(recipient => (
           <div key={recipient}>
