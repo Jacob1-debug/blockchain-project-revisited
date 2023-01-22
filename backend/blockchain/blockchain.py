@@ -3,19 +3,36 @@ from backend.wallet.transaction import Transaction
 from backend.wallet.wallet import Wallet
 from backend.config import MINING_REWARD_INPUT
 
+"""
+The code defines a Blockchain class for creating and maintaining a blockchain. 
+The class has methods for adding new blocks to the blockchain, replacing the existing chain with a new one,
+and checking the validity of the chain. Each instance of the class contains a list of blocks, where each block is 
+an instance of the Block class. The class also provides several methods for interacting with the blockchain, such as:
+
+__init__(): Initializes a new blockchain instance with the genesis block
+add_block(data): Mines a new block and adds it to the blockchain
+__repr__(): Returns a string representation of the blockchain
+replace_chain(chain): Replaces the local chain with the incoming one, if the incoming chain is longer and formatted properly
+to_json(): Serializes the blockchain into a list of blocks
+from_json(chain_json): Deserializes a list of serialized blocks into a blockchain instance
+is_valid_chain(chain): Validates the incoming chain by enforcing the rules of the blockchain
+is_valid_transaction_chain(chain): Validates the incoming chain by enforcing the rules of a chain composed of blocks of transactions
+The class also uses the Block class, the Transaction class, the Wallet class, and the MINING_REWARD_INPUT constant from the backend package.
+"""
+
 class Blockchain:
     """
     Blockchain: a public ledger of transactions.
     Implemented as a list of blocks - data sets of transactions
     """
     def __init__(self):
-        self.chain = [Block.genesis()]
+        self.chain = [Block.genesis()] #initialize the chain with the genesis block
 
     def add_block(self, data):
-        self.chain.append(Block.mine_block(self.chain[-1], data))
+        self.chain.append(Block.mine_block(self.chain[-1], data)) #mine a new block and add it to the chain
 
     def __repr__(self):
-        return f'Blockchain: {self.chain}'
+        return f'Blockchain: {self.chain}' 
 
     def replace_chain(self, chain):
         """
@@ -27,11 +44,11 @@ class Blockchain:
             raise Exception('Cannot replace. The incoming chain must be longer.')
 
         try:
-            Blockchain.is_valid_chain(chain)
+            Blockchain.is_valid_chain(chain) #check if incoming chain is valid
         except Exception as e:
             raise Exception(f'Cannot replace. The incoming chain is invalid: {e}')
 
-        self.chain = chain
+        self.chain = chain #replace the chain
 
     def to_json(self):
         """
@@ -51,7 +68,7 @@ class Blockchain:
         )
 
         return blockchain
-
+    
     @staticmethod
     def is_valid_chain(chain):
         """
