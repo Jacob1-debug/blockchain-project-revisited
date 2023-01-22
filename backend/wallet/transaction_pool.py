@@ -1,3 +1,17 @@
+
+"""
+The TransactionPool class is used to manage a pool of transactions.
+It keeps track of the transactions that have been added to the pool,
+and it provides methods for adding and removing transactions from the pool.
+The set_transaction method is used to add a new transaction to the pool,
+and the existing_transaction method can be used to check if a transaction has already been added.
+The transaction_data method returns all the transactions in the pool in a json serialized form.
+The clear_blockchain_transactions method is used to remove transactions that have been recorded on the blockchain,
+to prevent double-spending.
+"""
+
+
+
 class TransactionPool:
     def __init__(self):
         self.transaction_map = {}
